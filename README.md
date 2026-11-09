@@ -14,6 +14,8 @@ Run commands from the project root.
 
 ```
 python -m experiments.run_baseline   # run the baseline simulation
+python -m experiments.compare_strategies   # compare betting strategies
+python -m experiments.make_figures   # save charts to figures/
 python -m pytest                     # run the tests
 ```
 

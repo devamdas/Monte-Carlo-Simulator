@@ -1,6 +1,7 @@
 import pytest
 from src.metrics import (
     avg_result, median_result, percentile, prob_profit, risk_of_ruin, max_drawdown, summarize,
+    percentile_path, ruin_curve,
 )
 
 
@@ -32,3 +33,14 @@ def test_summarize_keys():
     stats = summarize([[100, 110], [100, 90]], 100, 10)
     assert stats["mean"] == pytest.approx(100)
     assert stats["prob_profit"] == pytest.approx(0.5)
+
+
+def test_percentile_path():
+    paths = [[100, 110, 120], [100, 90, 80], [100, 100, 100]]
+    assert percentile_path(paths, 50) == [100, 100, 100]
+    assert percentile_path(paths, 100) == [100, 110, 120]
+
+
+def test_ruin_curve():
+    paths = [[20, 10, 0, 0], [20, 30, 40, 50]]
+    assert ruin_curve(paths, 10) == [0, 0, 0.5, 0.5]

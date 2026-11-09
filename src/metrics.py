@@ -54,3 +54,13 @@ def summarize(paths: list, start_bankroll: float, min_bet: float) -> dict:
         "risk_of_ruin": risk_of_ruin(finals, min_bet),
         "avg_max_drawdown": avg_result([max_drawdown(path) for path in paths]),
     }
+
+
+def percentile_path(paths: list, p: float) -> list:
+    "The p-th percentile bankroll at each bet number, across all simulations"
+    return [percentile(list(step), p) for step in zip(*paths)]
+
+
+def ruin_curve(paths: list, min_bet: float) -> list:
+    "Share of simulations already ruined at each bet number"
+    return [risk_of_ruin(list(step), min_bet) for step in zip(*paths)]
